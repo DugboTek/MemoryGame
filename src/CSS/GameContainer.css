@@ -1,0 +1,77 @@
+.GameContainer{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+}
+
+.cardContainer{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 100%;
+    gap: 10px;
+    transform-origin: center center;
+
+}
+
+.jump{
+    animation-name: jump;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
+  @keyframes jump {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+.shake{
+    transform-origin: center center;
+    animation: shake 1s infinite;
+}
+
+.game-controls{
+    margin-top: 20px;
+}
+
+
+@keyframes shake {
+    0% {
+      transform: translate(0);
+    }
+    10% {
+      transform: translate(-5px, -5px) rotate(-1deg);
+    }
+    20% {
+      transform: translate(5px, 5px) rotate(1deg);
+    }
+    30% {
+      transform: translate(-5px, -5px) rotate(-1deg);
+    }
+    40% {
+      transform: translate(5px, 5px) rotate(1deg);
+    }
+    50% {
+      transform: translate(-5px, -5px) rotate(-1deg);
+    }
+    60% {
+      transform: translate(5px, 5px) rotate(1deg);
+    }
+    70% {
+      transform: translate(-5px, -5px) rotate(-1deg);
+    }
+    80% {
+      transform: translate(5px, 5px) rotate(1deg);
+    }
+    90% {
+      transform: translate(-5px, -5px) rotate(-1deg);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
