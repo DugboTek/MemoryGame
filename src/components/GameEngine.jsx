@@ -32,6 +32,7 @@ const GameEngine = () => {
   const [isCorrectOrder, setIsCorrectOrder] = useState(null);
   const [isIncorrectOrder, setIsIncorrectOrder] = useState(false);
   const [levelUp, setLevelUp] = useState(false);
+  
   const [level, setLevel] = useState(3);
   const cardRefs = useRef([]);
   const cardContainerRef = useRef(null);
@@ -43,22 +44,27 @@ const GameEngine = () => {
     if(isCorrect){
       setIsCorrectOrder(isCorrect);
       setIsIncorrectOrder(false);
+
       console.log("isCorrectOrder:", isCorrectOrder);
-      console.log("correct Orderrr",isCorrectOrder);
-      if (isCorrectOrder) {
-        setTimeout(() => {
-          setLevelUp(true)
-          nextLevel();
-        }, 2000);
-      }
+      
     }
+    const lastClickedCard = UserflippedCards[UserflippedCards.length - 1];
+    console.log("last clicked card",lastClickedCard);
+    
+    
     
     console.log(UserflippedCards);
     //if userflippedCards contains an element that is not in flippedCards set endGame to true
-    // if(!(UserflippedCards.every((card) => flippedCards.includes(card)))){
-    //   console.log("not correct card");
-    //   endGame();
-    // }
+    if(!(UserflippedCards.every((card) => flippedCards.includes(card)))){
+      console.log("not correct card");
+      endGame();
+    }
+    else if (UserflippedCards.length > 0) {
+      if (lastClickedCard !== flippedCards[UserflippedCards.length - 1]) {
+        endGame();
+      }
+     
+    }
 
   }, [UserflippedCards]);
 
@@ -72,7 +78,15 @@ const GameEngine = () => {
 
   useEffect(() => {
     //why is this part not logging out
-  
+    console.log("correct Orderrr",isCorrectOrder);
+    if (isCorrectOrder) {
+      console.log("went in here");
+      setIsCorrectOrder(false);
+      setTimeout(() => {
+        setLevelUp(true)
+        nextLevel();
+      }, 1000);
+    }
   }, [isCorrectOrder]);
 
   useEffect(() => {
@@ -83,14 +97,17 @@ const GameEngine = () => {
   }, [level,levelUp]);
 
 
-  // //endGame function
-  // const endGame = () => {
-  //   cardContainerRef.current.classList.add('shake');
-  //   setTimeout(() => {
-  //     cardContainerRef.current.classList.remove('shake');
-  //     handleNewGame();
-  //   },(1000));
-  // }
+  //endGame function
+  const endGame = () => {
+    setIsCorrectOrder(false);
+    setLevelUp(false);
+    setLevel(3);
+    cardContainerRef.current.classList.add('shake');
+    setTimeout(() => {
+      cardContainerRef.current.classList.remove('shake');
+      handleNewGame();
+    },(1000));
+  }
 
 
   
@@ -179,8 +196,8 @@ const GameEngine = () => {
       <div className="game-status">
         {isCorrectOrder ? <p>Correct Next Level</p> : <p>Flip the cards in the correct order.</p>}
       </div>
-      <div>
-        LEVEL :{level-2}
+      <div className='levelContainer'>
+        LEVEL: {level-2}
       </div>
       <div className="cardContainer" ref ={cardContainerRef}>
         {cards.map((card, i) => (

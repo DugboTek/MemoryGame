@@ -7,24 +7,11 @@
     transition: transform 0.5s;
     transform-style: preserve-3d;
     border-radius: 20px;
-   
+    box-shadow: 5px 5px 10px #d5d5d5,
+    -5px -5px 10px #ebebeb;
   }
 
-  .jump{
-    animation-name: jump;
-    animation-duration: 0.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-  }
   
-  @keyframes jump {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
 
 
   
